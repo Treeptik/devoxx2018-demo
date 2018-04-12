@@ -8,4 +8,4 @@ docker run --name postgres-srv \
 			-v `pwd`/scripts/users.sql:/opt/scripts/users.sql \
 			-d postgres
 
-docker exec -it postgres-srv "psql -U postgres -f /opt/scripts/users.sql"
+docker exec -it postgres-srv psql -U postgres -f /opt/scripts/users.sql
