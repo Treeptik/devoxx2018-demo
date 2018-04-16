@@ -4,12 +4,17 @@ pipeline {
 
 	environment {
          branch = env.BRANCH_NAME.replaceAll(/.*\//,"").toLowerCase().take(8)
+         patternComposeFile = "s/#APP#/$branch/"
    	}
 
 	stages {
 		stage('init') {
-                  steps {
+          steps {
 		     sh "echo $branch"
+		     sh "cp -f docker-compose.yml.template docker-compose.yml"
+		     sh "echo $patternComposeFile"
+		     sh "sed -i \"$patternComposeFile\" docker-compose.yml"
+		     sh "cat docker-compose.yml"
 		  }
 		}		
 		stage('checkout') {
