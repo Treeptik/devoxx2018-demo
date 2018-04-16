@@ -1,14 +1,24 @@
 version: '2'
 services:
   web:
-    image: nginx
+    image: treeptik/devoxx2018
     restart: unless-stopped
     labels:
-      - "traefik.frontend.rule=Host:app1.178.62.47.154.xip.io"
-      - "traefik.backend=app1"
-      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:#APP#.167.99.84.161.xip.io"
+      - "traefik.backend=#APP#"
+      - "traefik.port=8080"
       - "traefik.frontend.entryPoints=http"
 
+  database:
+    image: postgres:10
+    volumes:
+      - "/mnt/btrfs/pg-#APP#:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=false"
+      
 networks:
   default:
     external:
