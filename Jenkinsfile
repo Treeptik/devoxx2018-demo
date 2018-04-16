@@ -21,7 +21,7 @@ pipeline {
             		steps {
                			sh 'btrfs version'
                			sh '(test -e /mnt/btrfs/pg-$branch && btrfs subvolume delete /mnt/btrfs/pg-$branch) || true'
-               			sh 'btrfs subvolume snapshot  /mnt/btrfs/pg-data-ref/ /mnt/btrfs/pg-$branch/'
+               			sh 'btrfs subvolume snapshot  /mnt/btrfs/pg-data-ref /mnt/btrfs/pg-$branch'
             		}
         	}
 		stage('build & publish') {
